@@ -1,5 +1,7 @@
-// center each depth column — moved to helper for clarity
-  function centerNodesByDepth(nodesList, gapX, gapY) {
+import { nodeClass } from "./nodeStylesUtil";
+
+// center each depth column node
+function centerNodesByDepth(nodesList, gapX, gapY) {
     const counts = {};
     nodesList.forEach((n) => {
       const d = Math.round(n.position.y / gapY);
@@ -16,9 +18,9 @@
       const d = Math.round(n.position.y / gapY);
       n.position = { x: n.position.x + (offsets[d] || 0) + 10, y: n.position.y };
     });
-  }
+}
 
-
+// convert json data to node and edge data supported by react flow
 export function convertJsonToFlow(parsed, searchKey = "", xGap = 180, yGap = 90) {
   if (!parsed) return { nodes: [], edges: [] };
 
@@ -43,31 +45,28 @@ export function convertJsonToFlow(parsed, searchKey = "", xGap = 180, yGap = 90)
     name &&
     String(name).toLowerCase() === (String(searchKey).toLowerCase());
 
-  function walk(value, name = "root", depth = 0, parentId = null) {
+  function traverse(value, name = "root", depth = 0, parentId = null) {
     const id = nextId();
     const position = getXY(depth);
     const isMatch = keyMatch(name);
 
 
-    // Build label
+    // Building label for nodes
     let label = name;
     if (value === null) label += ": null";
     else if (typeof value !== "object") label += `: ${String(value)}`;
 
-    // Use Tailwind classNames so dark mode works via .dark on root
-    const baseClass =
-      "rounded-md px-3 py-2 shadow-sm border";
-    const themeClass =
-      "bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700";
-    const matchClass =
-      "bg-amber-50 dark:bg-amber-800 text-amber-800 dark:text-amber-200 ring-2 ring-amber-300";
-
+    const nodeType = Array.isArray(value)
+      ? "array"
+      : value && typeof value === "object"
+      ? "object"
+      : "primitive";
+      
     nodes.push({
       id,
       position,
-      data: { label },
-      // node wrapper will receive this className (react-flow supports it)
-      className: `${baseClass} ${isMatch ? matchClass : themeClass}`,
+      data: { label, nodeType },
+      className: nodeClass(nodeType, isMatch),
       draggable: false,
     });
 
@@ -83,14 +82,42 @@ export function convertJsonToFlow(parsed, searchKey = "", xGap = 180, yGap = 90)
 
     if (value && typeof value === "object") {
       if (Array.isArray(value)) {
-        value.forEach((item, idx) => walk(item, `${name}[${idx}]`, depth + 1, id));
+        value.forEach((item, idx) => traverse(item, `${name}[${idx}]`, depth + 1, id));
       } else {
-        Object.entries(value).forEach(([k, v]) => walk(v, k, depth + 1, id));
+        Object.entries(value).forEach(([k, v]) => traverse(v, k, depth + 1, id));
       }
     }
   }
 
-  walk(parsed, "root", 0, null);
+  traverse(parsed, "root", 0, null);
   centerNodesByDepth(nodes, xGap, yGap);
   return { nodes, edges };
+}
+
+// count no key present in json data
+export function countKeyMatches(jsonString, searchKey) {
+  if (!searchKey) return 0;
+  try {
+    const parsed = JSON.parse(jsonString);
+    let count = 0;
+    const target = String(searchKey).toLowerCase();
+
+    function traverse(value) {
+      if (value && typeof value === "object") {
+        if (Array.isArray(value)) {
+          value.forEach((item) => traverse(item));
+        } else {
+          Object.entries(value).forEach(([k, v]) => {
+            if (String(k).toLowerCase() === target) count += 1;
+            traverse(v);
+          });
+        }
+      }
+    }
+
+    traverse(parsed);
+    return count;
+  } catch {
+    return 0;
+  }
 }

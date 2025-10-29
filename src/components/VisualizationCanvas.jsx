@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from "react";
 import { ReactFlow, Background, Controls as RfControls } from "@xyflow/react";
-import { convertJsonToFlow } from "../utils/convertJsonToFlow";
+import { convertJsonToFlow } from "../utils/handleJSONData";
 import '@xyflow/react/dist/style.css';
 
 const VisualizationCanvas = ({ jsonString, searchKey }) => {

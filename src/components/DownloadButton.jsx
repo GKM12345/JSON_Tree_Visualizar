@@ -10,7 +10,8 @@ function downloadImage(dataUrl) {
   a.click();
 }
 
-export default function DownloadButton({ className = "" }) {
+ const DownloadButton = ({ className = "" }) => {
+
   const onClick = async () => {
     try {
       const dark =
@@ -79,7 +80,6 @@ export default function DownloadButton({ className = "" }) {
       type="button"
       onClick={onClick}
       aria-label="Download visualization"
-      title="Download visualization"
       className={`inline-flex items-center justify-center w-8 h-8 rounded-full border transition-colors shadow-sm
         bg-white text-slate-700 border-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700 dark:hover:bg-slate-700 ${className}`}
     >
@@ -91,3 +91,5 @@ export default function DownloadButton({ className = "" }) {
     </button>
   );
 }
+
+export default DownloadButton;

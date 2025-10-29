@@ -1,6 +1,5 @@
 import { useState } from "react";
-import {Header, ThemeToggle, EditorPanel, VisualizationCanvas, Controls} from "./components";
-import DownloadButton from "./components/DownloadButton";
+import {Header, ThemeToggle, EditorPanel, VisualizationCanvas, Controls, DownloadButton} from "./components";
 
 const initialJsonValue = `{
   "name": "Example",
@@ -10,7 +9,7 @@ const initialJsonValue = `{
   ]
 }`
 
-export default function App() {
+const App = () => {
 
   const [jsonValue, setJsonValue] = useState(initialJsonValue);
   const [searchKey, setSearchKey] = useState("");
@@ -55,3 +54,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;

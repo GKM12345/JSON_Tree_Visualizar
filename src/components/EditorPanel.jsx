@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function EditorPanel(props) {
     const { value, onChange } = props;
   return (

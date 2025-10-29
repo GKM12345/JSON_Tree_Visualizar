@@ -1,16 +1,25 @@
-# React + Vite
+# Web App
+An interactive JSON Tree Visualizer web application that allows users to visualize JSON data as a hierarchical tree structure with search and highlighting functionality.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Feature
+1. User can Paste or type JSON Data in Editor. As user will successfully paste or write valid JSON data 
+   then simultaneously On Visualization User will able to see the Object Tree.
+2. User can download that tree as image
+3. User can search particular key from search input box and able to see the nodes with that key as yellow background and border.
+4. Visualization of Object, Array and Primitive key Node are different as different background color
+5. User can Pretiffy, Copy and Clear JSON data in Editor.
+6. On Visualization There is option of Zoom In/Out and Center tree also.
 
-Currently, two official plugins are available:
+# UI Feature
+1. Web App totally Responsive for different pixel size and device.
+2. Web App have functionality of persist Dark and Light Mode.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Steps To Run this Repo Locally
+1. Clone the Repositry "https://github.com/GKM12345/JSON_Tree_Visualizar.git"
+2. Run "cd json-tree-visualizer" to go inside project directory
+3. Run "npm install" to install all dependencies
+4. Run "npm run dev" to run the code locally
+5. Visit "http://localhost:5173/" to view Web app
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Host Live URL
+https://json-tree-visualizar.vercel.app/

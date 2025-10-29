@@ -3,7 +3,79 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Global styles with dark/light support */
-/* body {
-  @apply bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300;
-} */
+/* theme-aware CSS vars */
+:root {
+  --edge-stroke: rgba(15,23,42,0.16);
+  --node-border: rgba(2,6,23,0.06);
+  --node-bg: white;
+  --node-text: #0f172a; 
+  --rflow-controls-bg: transparent;
+  --rflow-controls-btn-bg: #ffffff;
+  --rflow-controls-btn-border: rgba(2,6,23,0.06);
+  --rflow-controls-btn-color: #0f172a;
+  --rflow-controls-btn-hover: rgba(15,23,42,0.06);
+}
+.dark {
+  --edge-stroke: rgba(148,163,184,0.16);
+  --node-border: rgba(148,163,184,0.12);
+  --node-bg: #091226;
+  --node-text: #e5e7eb;
+  --rflow-controls-btn-bg: #0f172a;
+  --rflow-controls-btn-border: rgba(148,163,184,0.10);
+  --rflow-controls-btn-color: #e5e7eb;
+  --rflow-controls-btn-hover: rgba(148,163,184,0.06);
+}
+
+/* React Flow integration — target its DOM structure and use the CSS vars */
+.react-flow__node {
+  background: var(--node-bg) !important;
+  color: var(--node-text) !important;
+  border-color: var(--node-border) !important;
+}
+
+/* Edge path stroke: */
+.react-flow__edge-path {
+  stroke: var(--edge-stroke) !important;
+  stroke-width: 1.2px;
+}
+
+/* Edge label color */
+.react-flow__edge-textpath {
+  fill: var(--node-text) !important;
+}
+
+/* Optional: subtle background for canvas that also respects theme */
+.rflow-canvas-bg {
+  background-color: transparent;
+}
+
+/* Utility to ensure custom node class (if you used .rflow-node) picks up var */
+.rflow-node {
+  border-color: var(--node-border) !important;
+}
+
+.react-flow__controls {
+  background: var(--rflow-controls-bg) !important;
+}
+
+
+.react-flow__controls .react-flow__control-button,
+.react-flow__controls button {
+  background: var(--rflow-controls-btn-bg) !important;
+  color: var(--rflow-controls-btn-color) !important;
+  border-color: var(--rflow-controls-btn-border) !important;
+}
+
+/* ensure icons inherit the color */
+.react-flow__controls svg,
+.react-flow__controls .react-flow__control-button svg {
+  color: inherit !important;
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+/* subtle hover bg color only (color change) */
+.react-flow__controls .react-flow__control-button:hover,
+.react-flow__controls button:hover {
+  background: var(--rflow-controls-btn-hover) !important;
+}

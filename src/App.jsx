@@ -1,4 +1,3 @@
-// ...existing code...
 import { useState } from "react";
 import {Header, ThemeToggle, EditorPanel, VisualizationCanvas, Controls} from "./components";
 
@@ -40,7 +39,7 @@ export default function App() {
             />
           </section>
 
-          <aside className="md:col-span-6 bg-white dark:bg-slate-900 rounded-lg p-4 shadow-sm">
+          <aside className="md:col-span-6 bg-white dark:bg-slate-900 rounded-lg p-4 shadow-sm border-transparent dark:border-slate-700 dark:ring-1 dark:ring-slate-800 transition-colors">
             <h2 className="text-lg font-semibold mb-2">Visualization</h2>
             <VisualizationCanvas 
               jsonString={jsonValue}
